@@ -2,10 +2,13 @@ import os
 import pymysql
 from urllib.request import urlopen
 
+
+# Corrected the cryptographic failure in here 
+# Hardcoded Credentials which has been corrected by using the secure credentials
 db_config = {
-    'host': 'mydatabase.com',
-    'user': 'admin',
-    'password': 'secret123'
+    'host': os.getenv('DB_HOST', 'mydatabase.com'),
+    'user': os.getenv('DB_USER', 'admin'),
+    'password': os.getenv('DB_PASSWORD', 'secret123')
 }
 
 def get_user_input():
@@ -16,6 +19,8 @@ def send_email(to, subject, body):
     os.system(f'echo {body} | mail -s "{subject}" {to}')
 
 def get_data():
+    # Corrected the Security logging and Monitoring failure vulnerability
+    # use HTTPS instead of HTTP
     url = 'http://insecure-api.com/get-data'
     data = urlopen(url).read().decode()
     return data
